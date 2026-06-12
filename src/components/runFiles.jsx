@@ -1,24 +1,20 @@
 import React from 'react'
 import { useState } from 'react' 
 
-const Home = () => {
+const runScripts = () => {
     const [scripts, setScripts] = useState([]); 
     const [filePath, setFilePath] = useState('');
     const [output, setOutput] = useState(''); 
     const [loading, setLoading] = useState(false); 
 
     function handleRunScript() {
-      if (!filePath) {
-        alert('Please enter a file path'); 
-        return; 
-      }
       setLoading(true); 
       fetch('http://localhost:5001/api/run-python', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         }, 
-        body: JSON.stringify({ filePath }),
+        body: JSON.stringify({id: filePath}),
       }).then(res => res.json())
       .then(data => {
         setLoading(false);
@@ -31,7 +27,7 @@ const Home = () => {
       })
       .then(data => {
         if (data.success) {
-          setOutput(data.stdout); 
+          setOutput(data.output); 
         } else {
           alert(`Error: ${data.error || 'Unknown error occurred'}`);
         }
@@ -42,12 +38,6 @@ const Home = () => {
   return (
     <div>
       <h1>Run Python Script</h1>
-      <input 
-        type="text"
-        placeholder="Enter file path"
-        value={filePath}
-        onChange={(e) => setFilePath(e.target.value)} 
-        />
         <button onClick={handleRunScript}>Run</button> 
         {loading && <p>Running script...</p>}
         {output && <div>
@@ -58,4 +48,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default runScripts

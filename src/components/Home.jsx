@@ -40,7 +40,21 @@ const Home = () => {
 
 
   return (
-    <div>Home</div>
+    <div>
+      <h1>Run Python Script</h1>
+      <input 
+        type="text"
+        placeholder="Enter file path"
+        value={filePath}
+        onChange={(e) => setFilePath(e.target.value)} 
+        />
+        <button onClick={handleRunScript}>Run</button> 
+        {loading && <p>Running script...</p>}
+        {output && <div>
+          <h2>Output</h2>
+          <pre> {output}</pre>
+          </div>}
+    </div>
   )
 }
 

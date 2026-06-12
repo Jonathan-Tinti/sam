@@ -11,7 +11,7 @@ function App() {
       <div>
         <Router>
           <nav>
-            <Link to='/'>Home</Link>
+            <Link to='/'>Dashboard</Link>
           </nav>
           <Routes>
             <Route path='/' element={<Home />} /> 
